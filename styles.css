@@ -1,6 +1,5 @@
-body
+canvas
 {
-	text-align:	center;
-	background-color:	#080808;	
+	border-width:	2px;
+	border-style:	solid;
 }
-
