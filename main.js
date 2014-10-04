@@ -23,6 +23,14 @@ function init()
 	ctx = canvas.getContext("2d");
 	canvas.width = TILE_S * COLS;
 	canvas.height = TILE_S * ROWS;
+	canvas.setAttribute("tabIndex", "0");
+	canvas.focus();
+
+	//	Adding keyboard listeners to canvas
+	canvas.addEventListener("keydown",keyDownHandler);
+	canvas.addEventListener("keyup",keyUpHandler);
+
+	//	Adding canvas to DOM
 	document.body.appendChild(canvas);
 
 	//	Initialize actors
@@ -30,6 +38,46 @@ function init()
 	s = new Square(16, 16, TILE_S, TILE_S);
 	applyDraw(s);
 }
+
+function keyDownHandler(event)
+{
+	var key = String.fromCharCode(event.keyCode);
+
+	switch(key)
+	{
+		case "W":
+			s.vy = -12;
+			break;
+		case "S":
+			break;
+		case "A":
+			s.vx = -4;
+			break;
+		case "D":
+			s.vx = 4;
+			break;
+	}
+}
+
+function keyUpHandler(event)
+{
+	var key = String.fromCharCode(event.keyCode);
+
+	switch(key)
+	{
+		case "W":
+			break;
+		case "S":
+			break;
+		case "A":
+			s.vx = 0;
+			break;
+		case "D":
+			s.vx = 0;
+			break;
+	}
+}
+
 
 //	Main game loop
 function loop()
@@ -45,7 +93,6 @@ function update()
 	//	Update actors
 	//	SHOULD BE KEPT INSIDE A DATA STRUCTURE AND LOOPED
 	s.update();
-	//	GET RID OF THIS LINE, ONLY FOR TESTING NEED TO ADD PROPER METHOD
 }
 
 //	Draws background and all actors on screen
