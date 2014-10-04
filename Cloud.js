@@ -1,17 +1,17 @@
-function Cloud(x,y,width,height)
-{
-	this.width = width;
-	this.height = height;
+function Cloud(x, y, width, height) {
+    this.width = width;
+    this.height = height;
 
-	this.x = x;
-	this.y = y;
+    this.x = x;
+    this.y = y;
 
-	this.makeItRain()
-	{
-	}
+    this.makeItRain()
+    {
+    }
 
-	this.getRandX()
-	{
-		return (Math.random() * this.width) + this.x;
-	};
+    this.getRandX()
+    {
+        return (Math.random() * this.width) + this.x;
+    }
+    ;
 }
