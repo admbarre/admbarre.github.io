@@ -16,23 +16,32 @@ function Square(x, y, width, height)
 	this.ax = 0;
 	this.ay = 0;
 
-	//	"World" Variables
-	this.gravity = 1;
-
 	this.onGround = function()
 	{
 		if(this.y + this.height >= canvas.height)
-		{
 			return true;
-		}
+		else
+			return false;
+	};
+
+	this.onLeftWall = function()
+	{
+		if(this.x <= 0)
+			return true;
+		else
+			return false;
+	};
+
+	this.onRightWall = function()
+	{
+		if((this.x + this.width) >= canvas.width)
+			return true;
+		else
+			return false;
 	};
 
 	this.update = function()
 	{
-		//	Apply gravity
-		//	THIS IS NOT PROPER PHYSICS, FIX IT LATER
-		this.ay = this.gravity;
-
 		//	Apply velocity to position
 		this.x += this.vx;
 		this.y += this.vy;
@@ -42,11 +51,11 @@ function Square(x, y, width, height)
 		this.vy += this.ay;
 
 		//	BOUNDS CHECKING
-		if((this.x + this.width) >= canvas.width)	//	RIGHT BOUND
+		if(this.onRightWall())	//	RIGHT BOUND
 		{
 			this.x = canvas.width - this.width;
 		}
-		else if(this.x <= 0)	//	LEFT BOUND
+		else if(this.onLeftWall())	//	LEFT BOUND
 		{
 			this.x = 0;
 		}

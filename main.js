@@ -1,18 +1,53 @@
 //	Objects
 var canvas,
 	ctx,
-	s;
+	hero;
 
 //	Grid variables
 var TILE_S = 16,
 	COLS = 32,
 	ROWS = 32;
 
-//	Starting point for program
-function main()
+//	"World" variables
+var GRAVITY = 1;
+
+function keyDownHandler(event)
 {
-	init();
-	loop();
+	var key = String.fromCharCode(event.keyCode);
+
+	switch(key)
+	{
+		case "W":
+			hero.vy = -12;
+			break;
+		case "S":
+			break;
+		case "A":
+			hero.vx = -4;
+			break;
+		case "D":
+			hero.vx = 4;
+			break;
+	}
+}
+
+function keyUpHandler(event)
+{
+	var key = String.fromCharCode(event.keyCode);
+
+	switch(key)
+	{
+		case "W":
+			break;
+		case "S":
+			break;
+		case "A":
+			hero.vx = 0;
+			break;
+		case "D":
+			hero.vx = 0;
+			break;
+	}
 }
 
 //	Initializes canvas and actors
@@ -35,64 +70,25 @@ function init()
 
 	//	Initialize actors
 	//	SHOULD BE KEPT INSIDE A DATA STRUCTURE
-	s = new Square(16, 16, TILE_S, TILE_S);
-	applyDraw(s);
+	hero = new Square(16, 16, TILE_S, TILE_S);
+	applyDraw(hero);
+	applyGravity(hero, GRAVITY);
 }
-
-function keyDownHandler(event)
-{
-	var key = String.fromCharCode(event.keyCode);
-
-	switch(key)
-	{
-		case "W":
-			s.vy = -12;
-			break;
-		case "S":
-			break;
-		case "A":
-			s.vx = -4;
-			break;
-		case "D":
-			s.vx = 4;
-			break;
-	}
-}
-
-function keyUpHandler(event)
-{
-	var key = String.fromCharCode(event.keyCode);
-
-	switch(key)
-	{
-		case "W":
-			break;
-		case "S":
-			break;
-		case "A":
-			s.vx = 0;
-			break;
-		case "D":
-			s.vx = 0;
-			break;
-	}
-}
-
 
 //	Main game loop
 function loop()
 {
-	update();
+	updateAll();
 	drawAll();
 	window.requestAnimationFrame(loop);
 }
 
 //	Updates all actors on screen
-function update()
+function updateAll()
 {
 	//	Update actors
 	//	SHOULD BE KEPT INSIDE A DATA STRUCTURE AND LOOPED
-	s.update();
+	hero.update();
 }
 
 //	Draws background and all actors on screen
@@ -104,7 +100,7 @@ function drawAll()
 
 	//	Call actors' draw methods
 	//	SHOULD BE KEPT INSIDE A DATA STRUCTURE AND LOOPED
-	s.draw();
+	hero.draw();
 }
 
 //	Applies the draw function to the actor
@@ -115,6 +111,18 @@ function applyDraw(actor)
 		ctx.fillStyle = "white";
 		ctx.fillRect(actor.x, actor.y, actor.width, actor.height);
 	};
+}
+
+function applyGravity(actor, grav)
+{
+	actor.ay += grav;
+}
+
+//	Starting point for program
+function main()
+{
+	init();
+	loop();
 }
 
 main();
