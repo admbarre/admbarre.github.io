@@ -3,9 +3,10 @@
     <p> I am a cell engineer </p>
     <p> and a developer </p>
 </main>
+
 <style>
-main{
-    background: grey;
-}
+    main{
+        background: grey;
+    }
 </style>
 
